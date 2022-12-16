@@ -85,6 +85,14 @@ def node_set_boot_device(task, device, persistent=False):
         if strutils.bool_from_string(force_persistent, strict=False):
             persistent = True
 
+    vendor = task.node.properties.get('vendor', None)
+    if vendor and vendor.lower() == 'supermicro':
+        persistent = True
+        LOG.warn(
+            "Supermicro requires persistent boot to change boot device. "
+            "Override 'force_persistent_boot_device = true'."
+        )
+
     task.driver.management.set_boot_device(task, device=device,
                                            persistent=persistent)
 
