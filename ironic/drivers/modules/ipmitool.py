@@ -202,7 +202,8 @@ def _vendor_aware_boot_device_map(task):
         if boot_mode == 'uefi' and vendor == "supermicro":
             # This difference is only known on UEFI mode for supermicro
             # hardware.
-            boot_dev_map[boot_devices.DISK] = '0x24'
+            LOG.warn("Do not apply ironic disk device workaround")
+            # boot_dev_map[boot_devices.DISK] = '0x24'
         # NOTE(TheJulia): Similar differences may exist with Cisco UCS
         # hardware when using IPMI, however at present we don't know
         # what the setting would be.
